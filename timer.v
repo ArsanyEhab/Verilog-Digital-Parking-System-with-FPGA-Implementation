@@ -8,15 +8,15 @@ begin
     if(reset) // initial (zero)
         begin
             clk <= 0;
-            timer_count <= 0;
+            timer_count <= 10b'0; // reset the timer count
         end
     else
         begin
-            if(timer_count < 999)
-              timer_count <= timer_count + 1; // count 1023 
+            if(timer_count < 10d'1111100111)
+              timer_count <= timer_count + 10d'0000000001; // count 1023 
             else 
               begin
-                timer_count <= 0; // reset the timer count
+                timer_count <= 10b'0; // reset the timer count
               end
         end
     end
