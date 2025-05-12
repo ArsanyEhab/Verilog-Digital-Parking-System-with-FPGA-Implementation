@@ -57,6 +57,9 @@ module car_enter_exit (;
                             curunt_cost <= car3_cost; // display cost
                             car3_enter_time <= 10'd0; // reset enter time
                 end
+                default: begin
+                    curunt_cost <= 10'd0;
+                end
 
                 endcase
             end
