@@ -12,8 +12,8 @@ begin
         end
     else
         begin
-            if(timer_count < 10d'1111100111)
-              timer_count <= timer_count + 10d'0000000001; // count 1023 
+            if(timer_count < 10d'1111100111) // count till 999
+              timer_count <= timer_count + 10d'0000000001; 
             else 
               begin
                 timer_count <= 10b'0; // reset the timer count
