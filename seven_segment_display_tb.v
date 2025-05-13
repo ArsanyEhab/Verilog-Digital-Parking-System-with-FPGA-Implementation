@@ -5,7 +5,7 @@ module seven_segment_display_tb;
     wire led_a, led_b, led_c, led_d, led_e, led_f, led_g;
 
     // Instantiate the seven-segment display
-    seven_segment_display dut (
+    seven_seg dut (
         .A(A),
         .B(B),
         .C(C),

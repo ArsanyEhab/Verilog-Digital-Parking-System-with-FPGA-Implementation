@@ -1,4 +1,4 @@
-module 7seg (A, B, C, D, led_a, led_b, led_c, led_d, led_e, led_f, led_g);
+module seven_seg (A, B, C, D, led_a, led_b, led_c, led_d, led_e, led_f, led_g);
 	input A, B, C, D;
 	output led_a, led_b, led_c, led_d, led_e, led_f, 
              led_g;

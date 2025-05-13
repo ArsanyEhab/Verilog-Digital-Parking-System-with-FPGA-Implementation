@@ -9,7 +9,7 @@ always @(posedge clk or posedge reset)
 begin
 	if(reset) // initial (zero)
 		begin
-			count <= 0;6
+			count <= 0;
 			CLK1Hz <= 0;
 		end
 	else

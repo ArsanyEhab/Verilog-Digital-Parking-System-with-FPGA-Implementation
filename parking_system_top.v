@@ -66,7 +66,7 @@ module parking_system_top (
     );
 
     // Timer displays
-    seven_segment_display timer_display1 (
+    seven_seg timer_display1 (
         .A(timer_count[3]),
         .B(timer_count[2]),
         .C(timer_count[1]),
@@ -80,7 +80,7 @@ module parking_system_top (
         .led_g(led_timer_1[6])
     );
 
-    seven_segment_display timer_display2 (
+    seven_seg timer_display2 (
         .A(timer_count[7]),
         .B(timer_count[6]),
         .C(timer_count[5]),
@@ -94,7 +94,7 @@ module parking_system_top (
         .led_g(led_timer_2[6])
     );
 
-    seven_segment_display timer_display3 (
+    seven_seg timer_display3 (
         .A(0),
         .B(0),
         .C(timer_count[9]),
@@ -109,7 +109,7 @@ module parking_system_top (
     );
 
     // Cost displays
-    seven_segment_display cost_display1 (
+    seven_seg cost_display1 (
         .A(current_cost[3]),
         .B(current_cost[2]),
         .C(current_cost[1]),
@@ -123,7 +123,7 @@ module parking_system_top (
         .led_g(led_cost_1[6])
     );
 
-    seven_segment_display cost_display2 (
+    seven_seg cost_display2 (
         .A(current_cost[7]),
         .B(current_cost[6]),
         .C(current_cost[5]),
@@ -137,7 +137,7 @@ module parking_system_top (
         .led_g(led_cost_2[6])
     );
 
-    seven_segment_display cost_display3 (
+    seven_seg cost_display3 (
         .A(0),
         .B(0),
         .C(current_cost[9]),
