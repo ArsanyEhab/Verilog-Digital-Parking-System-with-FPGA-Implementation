@@ -14,7 +14,7 @@ begin
 		end
 	else
 		begin
-			if(count < 25_000_000)
+			if(count < 1000)
 			  count <= count + 1; // count 25 million 
 			else 
 			  begin

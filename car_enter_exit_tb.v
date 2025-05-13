@@ -19,7 +19,7 @@ module car_enter_exit_tb;
     wire [9:0] car1_cost;
     wire [9:0] car2_cost;
     wire [9:0] car3_cost;
-    wire [9:0] currunt_cost;
+    wire [9:0] current_cost;
 
     // Instantiate the car enter/exit module
     car_enter_exit dut (
@@ -41,7 +41,7 @@ module car_enter_exit_tb;
         .car1_cost(car1_cost),
         .car2_cost(car2_cost),
         .car3_cost(car3_cost),
-        .currunt_cost(currunt_cost)
+        .current_cost(current_cost)
     );
 
     // Clock generation
@@ -91,7 +91,7 @@ module car_enter_exit_tb;
         #50;
 
         // Test car 3 entering
-        car_sel = 3'b011;
+        car_sel = 3'b100;
         car_enter = 1;
         #10;
         car_enter = 0;
@@ -117,8 +117,8 @@ module car_enter_exit_tb;
 
     // Monitor
     initial begin
-        $monitor("Time=%t reset=%b car_sel=%b car_enter=%b car_exit=%b timer_count=%d car1_state=%b car2_state=%b car3_state=%b currunt_cost=%d",
-                 $time, reset, car_sel, car_enter, car_exit, timer_count, car1_state, car2_state, car3_state, currunt_cost);
+        $monitor("Time=%t reset=%b car_sel=%b car_enter=%b car_exit=%b timer_count=%d car1_state=%b car2_state=%b car3_state=%b current_cost=%d",
+                 $time, reset, car_sel, car_enter, car_exit, timer_count, car1_state, car2_state, car3_state, current_cost);
     end
 
 endmodule 

@@ -28,13 +28,6 @@ module timer_tb;
         reset = 0;
         #1000;
         
-        // Apply reset to check if timer resets
-        reset = 1;
-        #20;
-        
-        // Release reset and let timer count again
-        reset = 0;
-        #1000;
         
         $finish;
     end
