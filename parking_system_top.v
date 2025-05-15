@@ -29,16 +29,67 @@ module parking_system_top (
     wire [9:0] cost_in;
     wire [9:0] entry_time_out;
     wire [9:0] cost_out;
+    wire CLK1Hz;
     
     // BCD conversion signals for cost
     reg [3:0] bcd_units;    // 0-9
     reg [3:0] bcd_tens;     // 0-9
     reg [3:0] bcd_hundreds; // 0-9
 
-    // BCD conversion signals for timer display
+    // BCD conversion for timer display
     reg [3:0] timer_units;    // 0-9
     reg [3:0] timer_tens;     // 0-9
     reg [3:0] timer_hundreds; // 0-9
+
+    // Convert binary to BCD
+    always @(*) begin
+        timer_units = timer_count % 10;
+        timer_tens = (timer_count / 10) % 10;
+        timer_hundreds = (timer_count / 100) % 10;
+    end
+
+    // Timer displays
+    seven_seg timer_display1 (
+        .A(timer_units[3]),
+        .B(timer_units[2]),
+        .C(timer_units[1]),
+        .D(timer_units[0]),
+        .led_a(led_timer_3[0]),
+        .led_b(led_timer_3[1]),
+        .led_c(led_timer_3[2]),
+        .led_d(led_timer_3[3]),
+        .led_e(led_timer_3[4]),
+        .led_f(led_timer_3[5]),
+        .led_g(led_timer_3[6])
+    );
+
+    seven_seg timer_display2 (
+        .A(timer_tens[3]),
+        .B(timer_tens[2]),
+        .C(timer_tens[1]),
+        .D(timer_tens[0]),
+        .led_a(led_timer_2[0]),
+        .led_b(led_timer_2[1]),
+        .led_c(led_timer_2[2]),
+        .led_d(led_timer_2[3]),
+        .led_e(led_timer_2[4]),
+        .led_f(led_timer_2[5]),
+        .led_g(led_timer_2[6])
+    );
+
+    seven_seg timer_display3 (
+        .A(timer_hundreds[3]),
+        .B(timer_hundreds[2]),
+        .C(timer_hundreds[1]),
+        .D(timer_hundreds[0]),
+        .led_a(led_timer_1[0]),
+        .led_b(led_timer_1[1]),
+        .led_c(led_timer_1[2]),
+        .led_d(led_timer_1[3]),
+        .led_e(led_timer_1[4]),
+        .led_f(led_timer_1[5]),
+        .led_g(led_timer_1[6])
+    );
 
     // Binary to BCD conversion for cost
     always @(*) begin
@@ -47,16 +98,15 @@ module parking_system_top (
         bcd_hundreds = (current_cost / 100) % 10;
     end
 
-    // Binary to BCD conversion for timer
-    always @(*) begin
-        timer_units = timer_count % 10;
-        timer_tens = (timer_count / 10) % 10;
-        timer_hundreds = (timer_count / 100) % 10;
-    end
+    clk_div clk_div_inst (
+        .clk(clk),
+        .reset(reset),
+        .CLK1Hz(CLK1Hz)
+    );
 
     // Instantiate timer module
     timer timer_inst (
-        .clk(clk),
+        .clk(CLK1Hz),
         .reset(reset),
         .timer_count(timer_count)
     );
@@ -112,62 +162,19 @@ module parking_system_top (
         .empty_flag(empty_flag)
     );
 
-    // Timer displays
-    seven_seg timer_display1 (
-        .A(timer_units[3]),
-        .B(timer_units[2]),
-        .C(timer_units[1]),
-        .D(timer_units[0]),
-        .led_a(led_timer_1[6]),
-        .led_b(led_timer_1[5]),
-        .led_c(led_timer_1[4]),
-        .led_d(led_timer_1[3]),
-        .led_e(led_timer_1[2]),
-        .led_f(led_timer_1[1]),
-        .led_g(led_timer_1[0])
-    );
-
-    seven_seg timer_display2 (
-        .A(timer_tens[3]),
-        .B(timer_tens[2]),
-        .C(timer_tens[1]),
-        .D(timer_tens[0]),
-        .led_a(led_timer_2[6]),
-        .led_b(led_timer_2[5]),
-        .led_c(led_timer_2[4]),
-        .led_d(led_timer_2[3]),
-        .led_e(led_timer_2[2]),
-        .led_f(led_timer_2[1]),
-        .led_g(led_timer_2[0])
-    );
-
-    seven_seg timer_display3 (
-        .A(timer_hundreds[3]),
-        .B(timer_hundreds[2]),
-        .C(timer_hundreds[1]),
-        .D(timer_hundreds[0]),
-        .led_a(led_timer_3[6]),
-        .led_b(led_timer_3[5]),
-        .led_c(led_timer_3[4]),
-        .led_d(led_timer_3[3]),
-        .led_e(led_timer_3[2]),
-        .led_f(led_timer_3[1]),
-        .led_g(led_timer_3[0])
-    );
-
     // Cost displays
     seven_seg cost_display1 (
         .A(bcd_units[3]),
         .B(bcd_units[2]),
         .C(bcd_units[1]),
         .D(bcd_units[0]),
-        .led_a(led_cost_1[6]),
-        .led_b(led_cost_1[5]),
-        .led_c(led_cost_1[4]),
-        .led_d(led_cost_1[3]),
-        .led_e(led_cost_1[2]),
-        .led_f(led_cost_1[1]),
-        .led_g(led_cost_1[0])
+        .led_a(led_cost_3[0]),
+        .led_b(led_cost_3[1]),
+        .led_c(led_cost_3[2]),
+        .led_d(led_cost_3[3]),
+        .led_e(led_cost_3[4]),
+        .led_f(led_cost_3[5]),
+        .led_g(led_cost_3[6])
     );
 
     seven_seg cost_display2 (
@@ -175,13 +182,13 @@ module parking_system_top (
         .B(bcd_tens[2]),
         .C(bcd_tens[1]),
         .D(bcd_tens[0]),
-        .led_a(led_cost_2[6]),
-        .led_b(led_cost_2[5]),
-        .led_c(led_cost_2[4]),
+        .led_a(led_cost_2[0]),
+        .led_b(led_cost_2[1]),
+        .led_c(led_cost_2[2]),
         .led_d(led_cost_2[3]),
-        .led_e(led_cost_2[2]),
-        .led_f(led_cost_2[1]),
-        .led_g(led_cost_2[0])
+        .led_e(led_cost_2[4]),
+        .led_f(led_cost_2[5]),
+        .led_g(led_cost_2[6])
     );
 
     seven_seg cost_display3 (
@@ -189,13 +196,13 @@ module parking_system_top (
         .B(bcd_hundreds[2]),
         .C(bcd_hundreds[1]),
         .D(bcd_hundreds[0]),
-        .led_a(led_cost_3[6]),
-        .led_b(led_cost_3[5]),
-        .led_c(led_cost_3[4]),
-        .led_d(led_cost_3[3]),
-        .led_e(led_cost_3[2]),
-        .led_f(led_cost_3[1]),
-        .led_g(led_cost_3[0])
+        .led_a(led_cost_1[0]),
+        .led_b(led_cost_1[1]),
+        .led_c(led_cost_1[2]),
+        .led_d(led_cost_1[3]),
+        .led_e(led_cost_1[4]),
+        .led_f(led_cost_1[5]),
+        .led_g(led_cost_1[6])
     );
 
 endmodule
