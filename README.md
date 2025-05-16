@@ -111,8 +111,5 @@ This project is licensed under the Personal and Educational Use License - see th
 ## Acknowledgments
 Special thanks to Dr. Ahmad Shalaby for his guidance and for providing this excellent learning opportunity through the Computer Architecture course.
 
-  <footer>
-    © 2025 | MIPS Architecture Project |️The Fast Trackers⚡️|| El-Kadya Official Acadimic Team
-  </footer>
-</body>
-</html>
+
+© 2025 | MIPS Architecture Project |️The Fast Trackers⚡️|| El-Kadya Official Acadimic Team
